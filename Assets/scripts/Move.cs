@@ -30,12 +30,32 @@ public class Move : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         isMoving = false;
+        movimiento();
 
+        /*if (Input.GetButtonDown("Fire1"))
+        {
+            hurt = true;
+            atack = false;
+            enviarAnim();
+        }
+        if (Input.GetButtonDown("Fire2"))
+        {
+            dead = true;
+            enviarAnim();
+        }*/
+
+        enviarAnim();
+
+    }
+
+    private void movimiento()
+    {
         if (joystick.Horizontal > 0.5f || joystick.Horizontal < -0.5f)
         {
-            if(joystick.Horizontal > 0)
+            if (joystick.Horizontal > 0)
             {
                 rigth = true;
                 left = false;
@@ -43,7 +63,7 @@ public class Move : MonoBehaviour {
                 top = false;
                 enviarAnim();
             }
-            else if(joystick.Horizontal < 0)
+            else if (joystick.Horizontal < 0)
             {
                 left = true;
                 rigth = false;
@@ -81,23 +101,8 @@ public class Move : MonoBehaviour {
                 transform.Translate(new Vector3(0f, joystick.Vertical * moveSpeed * Time.deltaTime, 0f));
                 isMoving = true;
             }
-            
+
         }
-
-        /*if (Input.GetButtonDown("Fire1"))
-        {
-            hurt = true;
-            atack = false;
-            enviarAnim();
-        }
-        if (Input.GetButtonDown("Fire2"))
-        {
-            dead = true;
-            enviarAnim();
-        }*/
-
-        enviarAnim();
-
     }
 
     public void InitAtack()
