@@ -51,8 +51,11 @@ public class Move : MonoBehaviour {
                 top = false;
                 enviarAnim();
             }
-            transform.Translate(new Vector3(joystick.Horizontal * moveSpeed * Time.deltaTime, 0f, 0f));
-            isMoving = true;
+            if (!hurt)
+            {
+                transform.Translate(new Vector3(joystick.Horizontal * moveSpeed * Time.deltaTime, 0f, 0f));
+                isMoving = true;
+            }
         }
 
         if (joystick.Vertical > 0.5f || joystick.Vertical < -0.5f)
@@ -73,8 +76,12 @@ public class Move : MonoBehaviour {
                 left = false;
                 enviarAnim();
             }
-            transform.Translate(new Vector3(0f, joystick.Vertical * moveSpeed * Time.deltaTime, 0f));
-            isMoving = true;
+            if (!hurt)
+            {
+                transform.Translate(new Vector3(0f, joystick.Vertical * moveSpeed * Time.deltaTime, 0f));
+                isMoving = true;
+            }
+            
         }
 
         /*if (Input.GetButtonDown("Fire1"))
@@ -114,6 +121,12 @@ public class Move : MonoBehaviour {
         hurt = false;
     }
 
+    public void hurting()
+    {
+        hurt = true;
+        enviarAnim();
+    }
+
     void dying()
     {
         dead = true;
@@ -129,5 +142,14 @@ public class Move : MonoBehaviour {
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("hurt", hurt);
         anim.SetBool("dead", dead);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            hurting();
+        }
+        Debug.Log(collision.gameObject.tag);
     }
 }
