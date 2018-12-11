@@ -17,6 +17,7 @@ public class Move : MonoBehaviour {
     private bool atack;
     private bool hurt;
     private bool dead;
+    private bool inmune;
 
     // Use this for initialization
     void Start () {
@@ -112,13 +113,14 @@ public class Move : MonoBehaviour {
         left = false;
         top = false;
         down = false;
-        hurt = false;
+        inmune = true;
         enviarAnim();
     }
 
     void finishAtack()
     {
         atack = false;
+        inmune = false;
     }
 
     void finishHurt()
@@ -129,6 +131,8 @@ public class Move : MonoBehaviour {
     public void hurting()
     {
         hurt = true;
+        atack = false;
+        StartCoroutine(inmuneTime());
         enviarAnim();
     }
 
@@ -151,10 +155,19 @@ public class Move : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if(collision.CompareTag("Enemy") && !inmune)
         {
             hurting();
+            Debug.Log("me duele");
         }
-        Debug.Log(collision.gameObject.tag);
+    }
+
+
+    private IEnumerator inmuneTime()
+    {
+        inmune = true;
+        yield return new WaitForSeconds(2f);
+        inmune = false;
+
     }
 }

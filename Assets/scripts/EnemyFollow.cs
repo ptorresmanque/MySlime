@@ -12,19 +12,23 @@ public class EnemyFollow : MonoBehaviour {
     private bool down;
     private Vector3 aux;
     private Animator anim;
-    private AudioSource audio;
+    private AudioSource grasnidos;
 
     // Use this for initialization
     void Start () {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         anim = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        grasnidos = GetComponent<AudioSource>();
         StartCoroutine(grito());
     }
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        if (!gameObject.GetComponent<Damage>().getInmuneState())
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
+        
         changeAnimate();
         
 	}
@@ -106,7 +110,7 @@ public class EnemyFollow : MonoBehaviour {
     {
         while (true)
         {
-            audio.Play();
+            grasnidos.Play();
             yield return new WaitForSeconds(2f);
         }
         
