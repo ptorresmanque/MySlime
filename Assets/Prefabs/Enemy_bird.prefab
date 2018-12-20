@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stab: 2
+  sangre: {fileID: 1111062349646984, guid: c8d50630d2b756e4bbc3034e913484c6, type: 2}
 --- !u!114 &114805553859701524
 MonoBehaviour:
   m_ObjectHideFlags: 1

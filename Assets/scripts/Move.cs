@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Move : MonoBehaviour {
 
+    [SerializeField] GameStatus gameStatus;
+    [SerializeField] GameObject sangre;
     public float moveSpeed;
     public Joystick joystick;
 
@@ -134,9 +136,11 @@ public class Move : MonoBehaviour {
         atack = false;
         StartCoroutine(inmuneTime());
         enviarAnim();
+        gameStatus.DecreaseScore();
+        Instantiate(sangre, transform.position, Quaternion.identity);
     }
 
-    void dying()
+    public void dying()
     {
         dead = true;
     }

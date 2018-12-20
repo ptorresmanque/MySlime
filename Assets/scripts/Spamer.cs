@@ -9,6 +9,7 @@ public class Spamer : MonoBehaviour {
     private float timeBtwSpawn;
     public float startTimeBtwSpawn;
     public float decreaseTime;
+    public float minTimeSpam;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +23,10 @@ public class Spamer : MonoBehaviour {
             Vector3 position = new Vector3(Random.Range(-23.0f, 7.0f), Random.Range(-13.0f, 7.0f), 0);
             Instantiate(pajarraco, position, Quaternion.identity);
             timeBtwSpawn = startTimeBtwSpawn;
-            startTimeBtwSpawn -= decreaseTime;
+            if(startTimeBtwSpawn >= minTimeSpam)
+            {
+                startTimeBtwSpawn -= decreaseTime;
+            }
         }
         else
         {

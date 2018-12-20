@@ -7,9 +7,12 @@ public class Damage : MonoBehaviour {
     public int stab;
     private bool inmune;
     private Animator anim;
+    GameStatus gameStatus;
+    [SerializeField] GameObject sangre;
     // Use this for initialization
     void Start () {
         anim = GetComponent<Animator>();
+        gameStatus = FindObjectOfType<GameStatus>();
     }
 	
 	// Update is called once per frame
@@ -17,6 +20,7 @@ public class Damage : MonoBehaviour {
 		if(stab == 0)
         {
             Destroy(gameObject);
+            gameStatus.AddScore();
         }
 	}
 
@@ -26,6 +30,7 @@ public class Damage : MonoBehaviour {
         {
             stab -= 1;
             StartCoroutine(inmuneTime());
+            Instantiate(sangre, transform.position, Quaternion.identity);
         }
     }
 
